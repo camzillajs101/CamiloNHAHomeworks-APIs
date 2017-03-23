@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<style>
+
+		</style>
+	</head>
+	<body>
+		<form id="reg">
+			First name: <input type="text" id="fn"><br>
+			Last name: <input type="text" id="ln"><br>
+			Username: <input type="text" id="un"><br>
+			Email: <input type="text" id="em"><br>
+			Password: <input type="password" id="pw"><br>
+			<button id="submit">Register</button><br><br>
+		</form>
+		<script>
+		// REGISTRATION
+		let master_db = []
+		$('#reg').submit(function(event){
+			// Here's the messy part
+			let fn = $('#fn').val();
+			let ln = $('#ln').val();
+			let un = $('#un').val();
+			let em = $('#em').val();
+			let pw = $('#pw').val();
+			master_db.push(fn);
+			master_db.push(ln);
+			master_db.push(un);
+			master_db.push(em);
+			master_db.push(pw);
+			// Here's the complicated part
+			$.ajax({
+				method: "POST",
+				url: "https://data.sparkfun.com/input/jqRV7gn15luaZNXlEo8V",
+				headers: {
+					'Phant-Private-Key':'zzXjNbRwxkCEBvzK7ADN',
+				},
+				data: { username: un, firstname: fn, lastname: ln, password: pw, email: em },
+				success: function(data){
+					alert("Request: Registration data saved -- "+ data + "1 .json file saved");
+				}
+			})
+			event.preventDefault();
+		});
+		</script>
+	</body>
+</html>
