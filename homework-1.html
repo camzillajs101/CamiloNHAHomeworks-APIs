@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<style>
+
+		</style>
+	</head>
+	<body>
+		<form id="register">
+			Username<input id="username"><br>
+			Password<input id="password"><br>
+			<button id="register" type="submit">Register</button>
+		</form>
+		<form id="login">
+			Username<input id="username2"><br>
+			Password<input id="password2"><br>
+			<button id="login" type="submit">Login</button>
+		</form>
+		<script>
+			let users = [];
+			$('#register').submit(function(event){
+				let usernameInput = $('#username').val();
+				let passwordInput = $('#password').val();
+				users.push({
+					username: usernameInput,
+					password: passwordInput
+				});
+				alert("Registered");
+				event.preventDefault();
+			});
+			$('#login').submit(function(event){
+				let usernameInput = $('#username2').val();
+				let passwordInput = $('#password2').val();
+				let loggedin = false;
+				for (let i = 0; i < users.length; i++){
+					if (users[i].username === usernameInput){
+						if (users[i].password === passwordInput){
+							loggedin = true;
+						};
+					};
+				};
+				if (loggedin === true){
+					alert("Logged in");
+				} else {
+					alert("Username or password is not correct");
+				};
+				event.preventDefault();
+			});
+		</script>
+	</body>
+</html>
