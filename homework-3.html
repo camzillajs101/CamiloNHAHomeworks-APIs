@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<style>
+
+		</style>
+	</head>
+	<body>
+	
+		<script>
+		const url = "https://gist.githubusercontent.com/rickyc/5477bbe05fc9a94ae5f7fffb82076282/raw/d43cef6e271337d0ead6168c027e568f63c40de3/people.json"
+		$.get(url, (result) => {
+			console.log(result)
+			const json = JSON.parse(result);
+			for(var i = 0; i < json.results.length; i++){
+				currentPic = json.results[i].picture.thumbnail;
+				const currentAppend = `<b>First Name: </b>${json.results[i].name.first} <b>Last Name: </b>${json.results[i].name.last} <b>Username: </b>${json.results[i].login.username} <b>User Avatar: </b><img></img><br>`;
+				$('img').attr('src',currentPic)
+				console.log(currentPic)
+				$('body').append(currentAppend);
+			}
+		})
+		</script>
+	</body>
+</html>
