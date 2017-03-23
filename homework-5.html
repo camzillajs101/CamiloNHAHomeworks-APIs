@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <style>
+        .h-1 {
+            font-size: 2.5em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .h-2 {
+            font-size: 1.4em;
+        }
+        </style>
+    </head>
+    <body>
+        ID: <input type="text"><br>
+        <button>Go</button><br>
+        <br>
+        <div id="content">
+            <b>Posts</b>
+            <div id="posts"></div>
+            <b>Todos</b>
+            <div id="todos"></div>
+            <b>Albums</b>
+            <div id="album"></div>
+        </div>
+        <script>
+            let obj = {};
+            let val;
+            $('button').click(function(){
+                val = $('input').val();
+                var root = 'https://jsonplaceholder.typicode.com';
+                $.ajax({
+                    url: root+'/posts/'+val,
+                    method: 'GET'
+                }).then(function(data){
+                    obj.posts = {};
+                    obj.posts = {
+                        title: data.title,
+                        body: data.body
+                    };
+                    $('#posts').html("<div id='postt' class='h-2'>"+obj.posts.title+"</div><blockquote>"+obj.posts.body+"</blockquote>");
+                });
+                $.ajax({
+                    url: root+'/todos/'+val,
+                    method: 'GET',
+                }).then(function(data){
+                    obj.todos = {};
+                    obj.todos = {
+                        title: data.title,
+                        completed: data.completed
+                    };
+                    $('#todos').html("<div class='h-2'>"+obj.todos.title+"</div>");
+                    if (obj.todos.completed){
+                        $('#todos').append("<blockquote>Completed</blockquote>");
+                    } else {
+                        $('#todos').append("<blockquote>Not completed</blockquote>");
+                    };
+                });
+                $.ajax({
+                    url: root+'/albums/'+val,
+                    method: 'GET'
+                }).then(function(data){
+                    obj.albums = {};
+                    obj.albums = {
+                        title: data.title
+                    };
+                    $('#album').html("<div id='albumm' class='h-2'>"+obj.albums.title+"</div>");
+                });
+            });
+            $('#postt').click(function(){
+                $.ajax({
+                    url: root+'/comments/'+val,
+                    method: 'GET'
+                }).then(function(data){
+                    console.log(data);
+                });
+            });
+        </script>
+    </body>
+</html>
